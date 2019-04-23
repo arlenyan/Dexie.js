@@ -42,15 +42,10 @@ const
     MAX_LONG_STACKS = 20,
     ZONE_ECHO_LIMIT = 7,
     nativePromiseInstanceAndProto = (()=>{
-        try {
-            // Be able to patch native async functions
-            return new Function(`let F=async ()=>{},p=F();return [p,Object.getPrototypeOf(p),Promise.resolve(),F.constructor];`)();
-        } catch(e) {
-            var P = _global.Promise;
-            return P ?
-                [P.resolve(), P.prototype, P.resolve()] :
-                []; 
-        }
+        var P = _global.Promise;
+        return P ?
+            [P.resolve(), P.prototype, P.resolve()] :
+            []; 
     })(),
     resolvedNativePromise = nativePromiseInstanceAndProto[0],
     nativePromiseProto = nativePromiseInstanceAndProto[1],

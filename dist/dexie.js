@@ -4,7 +4,7 @@
  *
  * By David Fahlander, david.fahlander@gmail.com
  *
- * Version 2.0.4, Fri May 25 2018
+ * Version 2.0.4, Tue Apr 23 2019
  *
  * http://dexie.org
  *
@@ -625,16 +625,10 @@ var LONG_STACKS_CLIP_LIMIT = 100;
 var MAX_LONG_STACKS = 20;
 var ZONE_ECHO_LIMIT = 7;
 var nativePromiseInstanceAndProto = (function () {
-    try {
-        // Be able to patch native async functions
-        return new Function("let F=async ()=>{},p=F();return [p,Object.getPrototypeOf(p),Promise.resolve(),F.constructor];")();
-    }
-    catch (e) {
-        var P = _global.Promise;
-        return P ?
-            [P.resolve(), P.prototype, P.resolve()] :
-            [];
-    }
+    var P = _global.Promise;
+    return P ?
+        [P.resolve(), P.prototype, P.resolve()] :
+        [];
 })();
 var resolvedNativePromise = nativePromiseInstanceAndProto[0];
 var nativePromiseProto = nativePromiseInstanceAndProto[1];
@@ -1469,7 +1463,7 @@ function Events(ctx) {
  *
  * Copyright (c) 2014-2017 David Fahlander
  *
- * Version 2.0.4, Fri May 25 2018
+ * Version 2.0.4, Tue Apr 23 2019
  *
  * http://dexie.org
  *
